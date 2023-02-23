@@ -1,3 +1,10 @@
+#MIT License
+#Copyright (c) 2023 meowistic
+#https://github.com/meowistic/discord-token-nuker
+
+# DO NOT DELETE THE FIRST 3 LINES OF THIS CODE!!!
+
+
 import discord
 from discord.ext import commands
 from colorama import Fore
