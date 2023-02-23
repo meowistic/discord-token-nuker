@@ -16,7 +16,7 @@ from time import sleep
 colorama.init()
 
 print(Fore.LIGHTBLUE_EX + f'''
-NEW UPDATE: Automatically identifies if a token is a bot token or a user token.
+NEW UPDATE: Automatically identifies if a token is a bot token or a user account token.
 
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
 meow  |  \/  | ____/ _ \ \      / ( ) ___|    | \ | | | | | |/ / ____|  _ \   meow
