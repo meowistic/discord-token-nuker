@@ -14,7 +14,8 @@
 ## In-App Screenshots
 ![image](https://user-images.githubusercontent.com/126018790/220769640-f168ba2f-e5be-4661-a61d-e74aed854e91.png)
 ![image](https://user-images.githubusercontent.com/126018790/220769655-54a4493e-f619-4f84-9a9a-b84183bd0e6d.png)
-![image](https://user-images.githubusercontent.com/126018790/220769668-06098a8b-ca8c-40c0-a8da-5864b3d8515e.png)
+![image](https://user-images.githubusercontent.com/126018790/220938534-2448e638-7218-43db-8b2d-26ed6cd05feb.png)
+
 
 
 ## LEGAL INFORMATION
