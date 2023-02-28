@@ -10,6 +10,11 @@
 3. type  ``pip install -r requirements.txt`` into the command prompt, this will download all the required packages.
 4. Open `nuke.py ` and enjoy the program!
 
+# Configs Usage
+
+To use configs, you need to have a `config.json` file in the same directory as the nuker, and it has to have the same structure as the `config.json` file in this repo. 
+It is pretty self explanatory on how to use those configs, in the token field you add your bot's token (user account support coming soon!), prefix, nickname, and channel amount. After this just run `nuke.py` and the config will automatically import itself!
+
 
 ## In-App Screenshots
 ![image](https://user-images.githubusercontent.com/126018790/220769640-f168ba2f-e5be-4661-a61d-e74aed854e91.png)
