@@ -15,7 +15,6 @@ import random
 from time import sleep
 from colorama import Back
 import json
-import pwinput
 
 
 
