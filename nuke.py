@@ -35,7 +35,7 @@ if system == 'nt':
 elif system == 'posix':
     import sys
 
-    sys.stdout.write(f"\x1b]0;", "Meow's Discord Nuker" ,"\x07")
+    sys.stdout.write("Meow's Discord Nuker")
 else:
 
     pass
