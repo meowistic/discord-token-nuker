@@ -2,6 +2,7 @@
 
  ### DISCLAIMER: THIS PROGRAM IS PURELY FOR EDUCATIONAL PURPOSES AND I AM NOT ELIGIBLE FOR ANY DAMAGE DEALT TO SERVERS!!
 
+![GitHub last commit](https://img.shields.io/github/last-commit/meowistic/discord-token-nuker)
 
 #  Setup
 
@@ -13,7 +14,7 @@
 # Configs Usage
 
 To use configs, you need to have a `config.json` file in the same directory as the nuker, and it has to have the same structure as the `config.json` file in this repo. 
-It is pretty self explanatory on how to use those configs, in the token field you add your bot's token (user account support coming soon!), prefix, nickname, and channel amount. After this just run `nuke.py` and the config will automatically import itself!
+It is pretty self explanatory on how to use those configs, in the token field you add your bot's/user's token, prefix, nickname, and channel amount. After this just run `nuke.py` and the config will automatically import itself!
 
 
 ## In-App Screenshots
