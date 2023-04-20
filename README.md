@@ -2,7 +2,8 @@
 
  ### DISCLAIMER: THIS PROGRAM IS PURELY FOR EDUCATIONAL PURPOSES AND I AM NOT ELIGIBLE FOR ANY DAMAGE DEALT TO SERVERS!!
 
-![GitHub last commit](https://img.shields.io/github/last-commit/meowistic/discord-token-nuker)
+![GitHub last commit](https://img.shields.io/github/last-commit/meowistic/discord-token-nuker?style=for-the-badge)
+![Lines of code](https://img.shields.io/tokei/lines/github/meowistic/discord-token-nuker?label=lines%20of%20code&style=for-the-badge)
 
 #  Setup
 
