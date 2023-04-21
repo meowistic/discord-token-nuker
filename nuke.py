@@ -15,16 +15,12 @@ from time import sleep
 from colorama import Back
 import json
 import os
-from pypresence import Presence
+
 
 colorama.init()
 
 
-client_id = '1087484929014771713'
-RPC = Presence(client_id)
-RPC.connect()
 
-RPC.update(state="Discord Nuker")
 
 system = os.name
 if system == 'nt':
@@ -196,7 +192,7 @@ def vtoken(token):
 
             @bot.event
             async def on_ready():
-                await bot.change_presence(activity=discord.Game(name="MEOW'S NUKER"))
+                await bot.change_presence(activity=discord.watching(name=".help"))
                 print(Fore.LIGHTGREEN_EX+"[+] Logged in as " + bot.user.name)
                 print(Fore.YELLOW + f"[*] Waiting for command... ({prefix}meow)")
 
